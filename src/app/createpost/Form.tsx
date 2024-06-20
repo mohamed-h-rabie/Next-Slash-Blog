@@ -14,19 +14,19 @@ import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
 import Link from "next/link";
 import { actCreatePost } from "@/lib/features/createPost/createPostSlice";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
-  title: z.string().min(5, { message: "Title Is Required" }),
+  title: z.string().min(2, { message: "Title Is Required" }),
 
-  body: z.string().min(15, { message: "Body Is Required" }),
+  body: z.string().min(2, { message: "Body Is Required" }),
 });
 
 type formType = z.infer<typeof formSchema>;
 
 export default function Form() {
   const dispatch = useAppDispatch();
-  const { records } = useAppSelector((state) => state.createpost);
-  console.log(records);
+  const router = useRouter();
 
   const { register, handleSubmit, formState } = useForm<formType>({
     mode: "onBlur",
@@ -35,7 +35,9 @@ export default function Form() {
 
   const submitForm: SubmitHandler<formType> = async (data) => {
     const { title, body } = data;
-    dispatch(actCreatePost({ title, body, userId: 1 }));
+    dispatch(actCreatePost({ title, body, userId: 1 }))
+      .unwrap()
+      .then(() => router.push("/"));
   };
   return (
     <form onSubmit={handleSubmit(submitForm)}>
