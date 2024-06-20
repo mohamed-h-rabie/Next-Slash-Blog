@@ -13,7 +13,7 @@ export default function CardWithForm() {
   const { loading, error, records } = useAppSelector((state) => state.posts);
 
   // Pagnination
-  const PRODUCT_PER_PAGE = 10;
+  const PRODUCT_PER_PAGE = 9;
   const pages = Math.ceil(records.length / PRODUCT_PER_PAGE);
   const startIndex = (currentPage - 1) * PRODUCT_PER_PAGE;
   const finishIndex = currentPage * PRODUCT_PER_PAGE;
@@ -29,7 +29,7 @@ export default function CardWithForm() {
   }, [dispatch]);
   return (
     <>
-      <div className="flex gap-1 justify-center flex-wrap w-full  py-[20px] ">
+      <div className="flex gap-1 justify-center  flex-wrap w-full  py-[20px] ">
         {posts.map((record) => (
           <BlogPost
             key={record.id}

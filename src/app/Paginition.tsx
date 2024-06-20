@@ -32,7 +32,7 @@ export default function FooterPagination({
           </button>
         </PaginationItem>
         {generatedPages.map((page) => (
-          <PaginationItem key={page}>
+          <PaginationItem key={page} className="hidden lg:flex">
             <button onClick={() => setCurrentPage(page)}>
               <PaginationLink>{page}</PaginationLink>
             </button>
