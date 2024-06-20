@@ -18,10 +18,10 @@ type TBlog = {
 };
 export default function BlogPost({ title, body, id }: TBlog) {
   return (
-    <Card className="w-[350px] mr-7 mb-5 flex flex-col">
+    <Card className="w-[350px] mr-7 mb-5 flex flex-col justify-between">
       <CardHeader>
         <CardTitle> {title}</CardTitle>
-        <CardDescription> {body.slice(0, 15)}</CardDescription>
+        <CardDescription> {body.slice(0, 20)}...</CardDescription>
       </CardHeader>
       <CardFooter>
         <Link href={`/post/${id}`}>

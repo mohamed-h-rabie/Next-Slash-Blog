@@ -1,39 +1,91 @@
-// "use client";
-// import React from "react";
+"use client";
 
-// import { z } from "zod";
-// import { zodResolver } from "@hookform/resolvers/zod";
-// import { useForm } from "react-hook-form";
-// import { Button } from "@/components/ui/button";
-// import {
-//   Form,
-//   FormControl,
-//   FormDescription,
-//   FormField,
-//   FormItem,
-//   FormLabel,
-//   FormMessage,
-// } from "@/components/ui/form";
-// import { Input } from "@/components/ui/input";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { SubmitHandler, useForm } from "react-hook-form";
 
-// const formSchema = z.object({
-//   username: z.string().min(2).max(50),
-// });
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
-// export default function Form() {
-//   const { handleSubmit, register } = useForm<z.infer<typeof formSchema>>({
-//     resolver: zodResolver(formSchema),
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 
-//     defaultValues: {
-//       username: "",
-//     },
-//   });
-//   function onSubmit(values: z.infer<typeof formSchema>) {
-//     // Do something with the form values.
-//     // ✅ This will be type-safe and validated.
-//     console.log(values);
-//   }
-//   return (
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
-//   );
-// }
+import Link from "next/link";
+import { actCreatePost } from "@/lib/features/createPost/createPostSlice";
+
+const formSchema = z.object({
+  title: z.string().min(5, { message: "Title Is Required" }),
+
+  body: z.string().min(15, { message: "Body Is Required" }),
+});
+
+type formType = z.infer<typeof formSchema>;
+
+export default function Form() {
+  const dispatch = useAppDispatch();
+  const { records } = useAppSelector((state) => state.createpost);
+  console.log(records);
+
+  const { register, handleSubmit, formState } = useForm<formType>({
+    mode: "onBlur",
+    resolver: zodResolver(formSchema),
+  });
+
+  const submitForm: SubmitHandler<formType> = async (data) => {
+    const { title, body } = data;
+    dispatch(actCreatePost({ title, body, userId: 1 }));
+  };
+  return (
+    <form onSubmit={handleSubmit(submitForm)}>
+      <div className="border-2 border-gray-300 dark:border-gray-700 p-4 rounded-md shadow-md space-y-8">
+        <div className="space-y-2">
+          <h2 className="text-3xl font-bold">Create Post</h2>
+          <p className="text-gray-500 dark:text-gray-400">
+            Please fill the below form to post in Slash/Blog
+          </p>
+        </div>
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="name" className="text-gray-600 dark:text-gray-400">
+              Title
+            </Label>
+            <Input
+              id="title"
+              {...register("title")}
+              name="title"
+              placeholder="Enter your Title"
+              className="border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800"
+            />
+            {formState.errors?.title && (
+              <p className="text-red-600">*{formState.errors?.title.message}</p>
+            )}
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="phone" className="text-gray-600 dark:text-gray-400">
+              Body
+            </Label>
+
+            <Textarea
+              {...register("body")}
+              placeholder="Type your Body here."
+              id="body"
+              className="border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800"
+            />
+            {formState.errors?.body && (
+              <p className="text-red-600">*{formState.errors?.body.message}</p>
+            )}
+          </div>
+
+          <Button
+            type="submit"
+            className="w-full bg-gray-300 dark:bg-gray-700 text-black dark:text-white"
+          >
+            Submit
+          </Button>
+        </div>
+      </div>
+    </form>
+  );
+}

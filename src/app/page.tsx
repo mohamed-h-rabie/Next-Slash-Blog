@@ -25,10 +25,12 @@ export default function CardWithForm() {
     generatedPages.push(i);
   }
   useEffect(() => {
-    dispatch(actGetPosts());
+    if (!records.length) {
+      dispatch(actGetPosts());
+    }
   }, [dispatch]);
   return (
-    <>
+    <div>
       <div className="flex gap-1 justify-center  flex-wrap w-full  py-[20px] ">
         {posts.map((record) => (
           <BlogPost
@@ -45,6 +47,6 @@ export default function CardWithForm() {
         setCurrentPage={setCurrentPage}
         generatedPages={generatedPages}
       />
-    </>
+    </div>
   );
 }
