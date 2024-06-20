@@ -12,6 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
+import { useToast } from "@/components/ui/use-toast";
 import Link from "next/link";
 import { actCreatePost } from "@/lib/features/createPost/createPostSlice";
 import { useRouter } from "next/navigation";
@@ -27,7 +28,7 @@ type formType = z.infer<typeof formSchema>;
 export default function Form() {
   const dispatch = useAppDispatch();
   const router = useRouter();
-
+  const { toast } = useToast();
   const { register, handleSubmit, formState } = useForm<formType>({
     mode: "onBlur",
     resolver: zodResolver(formSchema),
@@ -37,7 +38,13 @@ export default function Form() {
     const { title, body } = data;
     dispatch(actCreatePost({ title, body, userId: 1 }))
       .unwrap()
-      .then(() => router.push("/"));
+      .then(() => router.push("/"))
+      .then(() =>
+        toast({
+          title: "Slash/Blog: Catch up",
+          description: `Your Post is added `,
+        })
+      );
   };
   return (
     <form onSubmit={handleSubmit(submitForm)}>
