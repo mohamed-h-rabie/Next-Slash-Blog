@@ -4,8 +4,6 @@ import "./globals.css";
 import Header from "./components/common/Header/Header";
 import Footer from "./components/common/Footer/Footer";
 
-import { Provider } from "react-redux";
-import store from "@/lib/store";
 import { ThemeProvider } from "./context/ThemeProvider";
 import StoreProvider from "./StoreProvider";
 const inter = Inter({ subsets: ["latin"] });
@@ -22,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <StoreProvider>
-      <html lang="en">
+      <html lang="en" suppressHydrationWarning>
         <body className={inter.className}>
           <ThemeProvider
             attribute="class"
