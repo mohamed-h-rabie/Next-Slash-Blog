@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 
 import { ModeToggle } from "./ModeToggle";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
@@ -12,10 +11,8 @@ import {
 } from "@/components/ui/navigation-menu";
 
 export default function Header() {
-  const [toggle, setToggle] = useState(false);
-  const handleClick = () => setToggle(!toggle);
   return (
-    <div className="container mx-auto px-4 md:px-6 lg:px-8 border-b border-border/40 bg-background/95">
+    <div className="container mb-5  mx-auto px-4 md:px-6 lg:px-8 border-b border-border/40 bg-background/95">
       <header className="flex h-20 w-full shrink-0 items-center px-4 md:px-6">
         <Sheet>
           <SheetTrigger asChild>
