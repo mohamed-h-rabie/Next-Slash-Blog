@@ -1,18 +1,21 @@
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-gradient-to-r from-sky-500 to-indigo-500 flex flex-col items-center justify-center px-4 py-16">
-      <h1 className="text-5xl font-bold text-white">Oops! Page Not Found</h1>
-      <p className="text-2xl text-white mt-4">
-        Looks like you stumbled upon a page that doesn't exist. Don't worry,
-        we'll help you find what you're looking for.
+    <div className="flex justify-center items-center flex-col">
+      <h1 className="text-3xl sm:text-5xl font-bold text-center">
+        Page Not Found
+      </h1>
+      <p className="text-1xl sm:text-2xl mt-4 text-center mb-5">
+        Could not find requested resource
       </p>
-      <div className="mt-8 flex flex-col sm:flex-row gap-4">
-        <Link href="/" className="btn btn-primary">
+
+      <Button variant="destructive">
+        <Link href="/" replace={true}>
           Go Home
         </Link>
-      </div>
+      </Button>
     </div>
   );
 }
