@@ -1,5 +1,3 @@
-"use client";
-
 import { ModeToggle } from "./ModeToggle";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
@@ -9,6 +7,7 @@ import {
   NavigationMenuList,
   NavigationMenuLink,
 } from "@/components/ui/navigation-menu";
+import MenuIcon from "./MenuIcon";
 
 export default function Header() {
   return (
@@ -26,7 +25,6 @@ export default function Header() {
               <h1 className="scroll-m-20 text-2xl font-extrabold tracking-tight lg:text-3xl">
                 Slash/Blog
               </h1>
-              <span className="sr-only">ShadCN</span>
             </Link>
             <div className="grid gap-2 py-6">
               <Link
@@ -50,7 +48,6 @@ export default function Header() {
           <h1 className="scroll-m-20 text-2xl font-extrabold tracking-tight lg:text-3xl">
             Slash/Blog
           </h1>
-          <span className="sr-only">ShadCN</span>
         </Link>
         <NavigationMenu className="hidden lg:flex">
           <NavigationMenuList>
@@ -75,25 +72,5 @@ export default function Header() {
         </div>
       </header>
     </div>
-  );
-}
-function MenuIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <line x1="4" x2="20" y1="12" y2="12" />
-      <line x1="4" x2="20" y1="6" y2="6" />
-      <line x1="4" x2="20" y1="18" y2="18" />
-    </svg>
   );
 }

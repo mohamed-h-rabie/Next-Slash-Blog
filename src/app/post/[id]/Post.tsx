@@ -1,5 +1,6 @@
 "use client";
 
+import LoadingSpinner from "@/app/components/common/feedback/LoadingSpinner";
 import { actGetPostById, postCleanUp } from "@/lib/features/post/postSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { useParams } from "next/navigation";
@@ -8,29 +9,16 @@ export default function Post() {
   const params = useParams<{ id: string }>();
   const dispatch = useAppDispatch();
   const { loading, error, records } = useAppSelector((state) => state.post);
+  //Fetching data
   useEffect(() => {
     dispatch(actGetPostById(params.id as string));
     return () => {
       dispatch(postCleanUp());
     };
   }, [dispatch, params]);
-  if (loading === "pending")
-    return (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className={"animate-spin flex justify-center items-center"}
-      >
-        <path d="M21 12a9 9 0 1 1-6.219-8.56" />
-      </svg>
-    );
+
+  if (loading === "pending") return <LoadingSpinner />;
+  if (error) return <div>{error}</div>;
   return (
     <div className="m-5">
       <article>
