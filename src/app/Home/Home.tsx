@@ -29,7 +29,7 @@ export default function Home() {
     if (!records.length) {
       dispatch(actGetPosts());
     }
-  }, [dispatch]);
+  }, [dispatch, records]);
 
   if (loading === "pending") {
     return <LoadingSpinner />;
