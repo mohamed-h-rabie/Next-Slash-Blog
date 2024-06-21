@@ -1,6 +1,6 @@
 "use client";
 
-import LoadingSpinner from "@/app/components/common/feedback/LoadingSpinner";
+import LoadingSpinner from "../Feedback/LoadingSpinner";
 import { actGetPostById, postCleanUp } from "@/lib/features/post/postSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { useParams } from "next/navigation";

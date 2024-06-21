@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { actGetPosts } from "@/lib/features/posts/postsSlice";
 
-import BlogPost from "../components/common/BlogPost/BlogPost";
+import BlogPost from "../BlogPost/BlogPost";
 import FooterPagination from "./Paginition";
-import LoadingSpinner from "../components/common/feedback/LoadingSpinner";
+import LoadingSpinner from "../Feedback/LoadingSpinner";
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState(1);
